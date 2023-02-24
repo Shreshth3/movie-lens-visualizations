@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 DATA_PATH = 'data/data.csv'
 MOVIES_PATH = 'data/movies.csv'
@@ -9,18 +10,23 @@ MOVIES_PATH = 'data/movies.csv'
 data = pd.read_csv(DATA_PATH, sep=',')
 movies = pd.read_csv(MOVIES_PATH, sep=',')
 
+sns.set_theme(style="darkgrid")
 # %%
 def plot_hist(title, data):
+    # use the to_numpy() if using matplotlib
+    # data = data.to_numpy()
+
     plt.title(label=title)
-    plt.hist(data, bins=10)
-    plt.xlabel("Ratings")
-    plt.ylabel("Num movies")
+    # plt.hist(data, bins=10)
+    sns.histplot(data, bins=10)
+    plt.xlim(0.5, 5)
+    # plt.xlabel("Ratings")
+    # plt.ylabel("Num movies")
     plt.show()
 
 # %%
 # All ratings in the MovieLens Dataset
 ratings = data.loc[:, 'Rating']
-ratings = ratings.to_numpy()
 
 plot_hist("All ratings in the MovieLens Dataset", ratings)
 
@@ -42,7 +48,7 @@ top_ten_movie_ids_by_frequency = get_top_ten_most_popular_movie_ids()
 
 top_ten_movies = data.loc[data['Movie ID'].isin(
     top_ten_movie_ids_by_frequency)]
-ratings_for_top_ten_movies = top_ten_movies['Rating'].to_numpy()
+ratings_for_top_ten_movies = top_ten_movies['Rating']
 
 plot_hist("Ratings for top 10 most popular movies", ratings_for_top_ten_movies)
 
@@ -86,7 +92,7 @@ for GENRE in GENRES_TO_KEEP:
     cleaned_ids = cleaned_movies['Movie ID'].to_numpy()
     # now grab the ratings
     cleaned_data = data.loc[data['Movie ID'].isin(cleaned_ids)]
-    cleaned_ratings = cleaned_data.loc[:, 'Rating'].to_numpy()
+    cleaned_ratings = cleaned_data.loc[:, 'Rating']
 
     plot_hist(f"All ratings for {GENRE}", cleaned_ratings)
 
