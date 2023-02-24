@@ -16,7 +16,7 @@ ratings = ratings.to_numpy()
 # %% 
 # All ratings in the MovieLens Dataset
 plt.title(label="All ratings in the MovieLens Dataset")
-plt.hist(ratings, bins=5)
+plt.hist(ratings, bins=10)
 plt.xlabel("Ratings")
 plt.show()
 
