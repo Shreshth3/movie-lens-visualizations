@@ -10,19 +10,22 @@ data = pd.read_csv(DATA_PATH, sep=',')
 movies = pd.read_csv(MOVIES_PATH, sep=',')
 
 # %%
-ratings = data.loc[:, 'Rating']
-ratings = ratings.to_numpy()
+def plot_hist(title, data):
+    plt.title(label=title)
+    plt.hist(data, bins=10)
+    plt.xlabel("Ratings")
+    plt.ylabel("Num movies")
+    plt.show()
 
 # %%
 # All ratings in the MovieLens Dataset
-plt.title(label="All ratings in the MovieLens Dataset")
-plt.hist(ratings, bins=10)
-plt.xlabel("Ratings")
-plt.show()
+ratings = data.loc[:, 'Rating']
+ratings = ratings.to_numpy()
+
+plot_hist("All ratings in the MovieLens Dataset", ratings)
 
 # %%
 # Ratings of 10 most popular movies
-
 
 def get_top_ten_most_popular_movie_ids():
     movies_with_frequencies = data.groupby(by='Movie ID').count()
@@ -41,12 +44,7 @@ top_ten_movies = data.loc[data['Movie ID'].isin(
     top_ten_movie_ids_by_frequency)]
 ratings_for_top_ten_movies = top_ten_movies['Rating'].to_numpy()
 
-plt.title(label="Ratings for top 10 most popular movies")
-plt.hist(ratings, bins=10)
-plt.ylabel("Num movies")
-plt.xlabel("Ratings")
-plt.show()
-
+plot_hist("Ratings for top 10 most popular movies", ratings_for_top_ten_movies)
 
 # %%
 # Ratings of 10 best movies (movies w/ highest average rating)
@@ -70,10 +68,8 @@ for mID in top_10_movie_IDs:
     #     top_ratings.append(rat)
     # break
 print(len(top_ratings))
-plt.hist(top_ratings, bins=10)
-plt.xlabel("Ratings")
-plt.title(label="All Ratings for Top 10 Rated Movies")
-plt.show()
+
+plot_hist("All Ratings for Top 10 Rated Movies", top_ratings)
 
 # %%
 # All ratings of movies from 3 genres of our choice (Action, Adventure, Animation)
@@ -92,10 +88,7 @@ for GENRE in GENRES_TO_KEEP:
     cleaned_data = data.loc[data['Movie ID'].isin(cleaned_ids)]
     cleaned_ratings = cleaned_data.loc[:, 'Rating'].to_numpy()
 
-    plt.title(label=f"All ratings for {GENRE}")
-    plt.hist(cleaned_ratings, bins=10)
-    plt.xlabel("Ratings")
-    plt.show()
+    plot_hist(f"All ratings for {GENRE}", cleaned_ratings)
 
 # get a thing with all three of them together, we don't need this XD
 # cleaned_movies = temp[(temp[GENRES_TO_KEEP[0]] > 0) | (temp[GENRES_TO_KEEP[1]] > 0) | (temp[GENRES_TO_KEEP[2]] > 0)]
