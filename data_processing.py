@@ -83,7 +83,6 @@ for point in data2:
 print(f"TOP3 RATING LENGTH: {len(top3_ratings)}")
 
 
-
 # only_wanted_genres = data.loc[data['Action'] == 1 or data['Adventure'] == 1 or data['Animation'] == 1]
 # partial_ratings = data.loc[:, 'Rating']
 # print(f"LENGTH OF THE THING IS: {len(partial_ratings)}")
