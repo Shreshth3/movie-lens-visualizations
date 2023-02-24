@@ -23,6 +23,31 @@ plt.show()
 # %%
 # Ratings of 10 most popular movies
 
+
+def get_top_ten_most_popular_movie_ids():
+    movies_with_frequencies = data.groupby(by='Movie ID').count()
+    movies_by_frequency = movies_with_frequencies.sort_values(
+        'Rating', ascending=False)
+
+    top_ten_movies_by_frequency = movies_by_frequency[:10]
+    top_ten_movie_ids_by_frequency = top_ten_movies_by_frequency.index.values
+
+    return top_ten_movie_ids_by_frequency
+
+
+top_ten_movie_ids_by_frequency = get_top_ten_most_popular_movie_ids()
+
+top_ten_movies = data.loc[data['Movie ID'].isin(
+    top_ten_movie_ids_by_frequency)]
+ratings_for_top_ten_movies = top_ten_movies['Rating'].to_numpy()
+
+plt.title(label="Ratings for top 10 most popular movies")
+plt.hist(ratings, bins=10)
+plt.ylabel("Num movies")
+plt.xlabel("Ratings")
+plt.show()
+
+
 # %%
 # Ratings of 10 best movies
 grouped = data.groupby(by='Movie ID').mean()
