@@ -22,7 +22,11 @@ plt.show()
 
 # %%
 # Ratings of 10 most popular movies
-
+grouped = data.groupby(by='Movie ID').mean()
+# drop User ID
+grouped = grouped.drop(columns='User ID')
+# sort to get 10 most popular movies
+print(grouped.sort_values('Rating', ascending=False))
 
 # %%
 # All ratings of movies from 3 genres of our choice (Action, Adventure, Animation)
