@@ -23,13 +23,67 @@ plt.show()
 # %%
 # Ratings of 10 most popular movies
 
+
+def get_top_ten_most_popular_movie_ids():
+    movies_with_frequencies = data.groupby(by='Movie ID').count()
+    movies_by_frequency = movies_with_frequencies.sort_values(
+        'Rating', ascending=False)
+
+    top_ten_movies_by_frequency = movies_by_frequency[:10]
+    top_ten_movie_ids_by_frequency = top_ten_movies_by_frequency.index.values
+
+    return top_ten_movie_ids_by_frequency
+
+
+top_ten_movie_ids_by_frequency = get_top_ten_most_popular_movie_ids()
+
+top_ten_movies = data.loc[data['Movie ID'].isin(
+    top_ten_movie_ids_by_frequency)]
+ratings_for_top_ten_movies = top_ten_movies['Rating'].to_numpy()
+
+plt.title(label="Ratings for top 10 most popular movies")
+plt.hist(ratings, bins=10)
+plt.ylabel("Num movies")
+plt.xlabel("Ratings")
+plt.show()
+
+
 # %%
 # Ratings of 10 best movies (movies w/ highest average rating)
 grouped = data.groupby(by='Movie ID').mean()
 # drop User ID
 grouped = grouped.drop(columns='User ID')
 # sort to get 10 most popular movies
-print(grouped.sort_values('Rating', ascending=False))
+top_10_movies = grouped.sort_values('Rating', ascending=False)[:10]
+top_10_movie_IDs = top_10_movies.index.values
+# print(top_10_movie_IDs)
+
+top_ratings = []
+for mID in top_10_movie_IDs:
+    mov_ratings = data.loc[data["Movie ID"] == mID]
+    just_ratings = mov_ratings.to_numpy()[:,2]
+    top_ratings.extend(just_ratings)
+    # break
+    # for person in mov_ratings:
+    #     print(person)
+    #     break
+    #     top_ratings.append(rat)
+    # break
+print(len(top_ratings))
+plt.hist(top_ratings, bins=10)
+plt.xlabel("Ratings")
+plt.title(label="All Ratings for Top 10 Rated Movies")
+plt.show()
+
+
+
+# %%
+
+# %%
+
+# %%
+
+# %%
 
 # %%
 # All ratings of movies from 3 genres of our choice (Action, Adventure, Animation)
