@@ -22,6 +22,9 @@ plt.show()
 
 # %%
 # Ratings of 10 most popular movies
+
+# %%
+# Ratings of 10 best movies
 grouped = data.groupby(by='Movie ID').mean()
 # drop User ID
 grouped = grouped.drop(columns='User ID')
