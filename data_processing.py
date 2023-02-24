@@ -24,7 +24,7 @@ plt.show()
 # Ratings of 10 most popular movies
 
 # %%
-# Ratings of 10 best movies
+# Ratings of 10 best movies (movies w/ highest average rating)
 grouped = data.groupby(by='Movie ID').mean()
 # drop User ID
 grouped = grouped.drop(columns='User ID')
@@ -33,30 +33,28 @@ print(grouped.sort_values('Rating', ascending=False))
 
 # %%
 # All ratings of movies from 3 genres of our choice (Action, Adventure, Animation)
-data2 = pd.DataFrame.copy(data, deep=True)
-data2 = data2.to_numpy()
+# Can change:
+GENRES_TO_KEEP = ['Action', 'Adventure', 'Animation']
 
-top3_ratings = []
+TO_KEEP = ['Movie ID', 'Movie Title']
 
-for point in data2:
-    uid, mid, rating = point
-    movie = movies.loc[data["Movie ID"] == mid]
-    movie = movie.to_numpy()
-    # print(movie)
-    # break
-    # if movie.any(movie[0][3] == 1 or movie[0][4] == 1 or movie[0][5] == 1):
-    #     top3_ratings.append(rating)
-    if len(movie) == 0:
-        continue
-    if (movie[0][3] == 1 or movie[0][4] == 1 or movie[0][5] == 1):
-        top3_ratings.append(rating)
+for GENRE in GENRES_TO_KEEP:
+    temp = movies[TO_KEEP + [GENRE]]
+    # get all the movies that is labeled the genre
+    cleaned_movies = temp[(temp[GENRE] > 0)]
+    # get the ids
+    cleaned_ids = cleaned_movies['Movie ID'].to_numpy()
+    # now grab the ratings
+    cleaned_data = data.loc[data['Movie ID'].isin(cleaned_ids)]
+    cleaned_ratings = cleaned_data.loc[:, 'Rating'].to_numpy()
 
-print(f"TOP3 RATING LENGTH: {len(top3_ratings)}")
+    plt.title(label=f"All ratings for {GENRE}")
+    plt.hist(cleaned_ratings, bins=10)
+    plt.xlabel("Ratings")
+    plt.show()
 
-
-# only_wanted_genres = data.loc[data['Action'] == 1 or data['Adventure'] == 1 or data['Animation'] == 1]
-# partial_ratings = data.loc[:, 'Rating']
-# print(f"LENGTH OF THE THING IS: {len(partial_ratings)}")
-
+# get a thing with all three of them together, we don't need this XD
+# cleaned_movies = temp[(temp[GENRES_TO_KEEP[0]] > 0) | (temp[GENRES_TO_KEEP[1]] > 0) | (temp[GENRES_TO_KEEP[2]] > 0)]
+# cleaned_movies = temp[(temp[GENRES_TO_KEEP[0]] > 0)]
 
 # %%
