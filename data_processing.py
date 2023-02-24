@@ -29,7 +29,36 @@ grouped = data.groupby(by='Movie ID').mean()
 # drop User ID
 grouped = grouped.drop(columns='User ID')
 # sort to get 10 most popular movies
-print(grouped.sort_values('Rating', ascending=False))
+top_10_movies = grouped.sort_values('Rating', ascending=False)[:10]
+top_10_movie_IDs = top_10_movies.index.values
+# print(top_10_movie_IDs)
+
+top_ratings = []
+for mID in top_10_movie_IDs:
+    mov_ratings = data.loc[data["Movie ID"] == mID]
+    just_ratings = mov_ratings.to_numpy()[:,2]
+    top_ratings.extend(just_ratings)
+    # break
+    # for person in mov_ratings:
+    #     print(person)
+    #     break
+    #     top_ratings.append(rat)
+    # break
+print(len(top_ratings))
+plt.hist(top_ratings, bins=10)
+plt.xlabel("Ratings")
+plt.title(label="All Ratings for Top 10 Rated Movies")
+plt.show()
+
+
+
+# %%
+
+# %%
+
+# %%
+
+# %%
 
 # %%
 # All ratings of movies from 3 genres of our choice (Action, Adventure, Animation)
