@@ -75,16 +75,6 @@ plt.xlabel("Ratings")
 plt.title(label="All Ratings for Top 10 Rated Movies")
 plt.show()
 
-
-
-# %%
-
-# %%
-
-# %%
-
-# %%
-
 # %%
 # All ratings of movies from 3 genres of our choice (Action, Adventure, Animation)
 # Can change:
