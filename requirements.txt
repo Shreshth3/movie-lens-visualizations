@@ -2,3 +2,5 @@ seaborn[stats]
 matplotlib
 plotly
 pygal
+surprise
+scikit-surprise
