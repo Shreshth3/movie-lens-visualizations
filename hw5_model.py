@@ -155,9 +155,3 @@ def get_U_V(data):
     U = U_transpose.T
 
     return U, V
-
-
-data, movies = read_data()
-U, V = get_U_V(data)
-print(U.shape)
-print(V.shape)
