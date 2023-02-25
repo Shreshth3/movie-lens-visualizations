@@ -18,8 +18,8 @@ def plot_hist(title, data):
 
     plt.title(label=title)
     # plt.hist(data, bins=10)
-    sns.histplot(data, bins=10)
-    plt.xlim(0.5, 5)
+    sns.histplot(data, bins=10, binwidth=0.5)
+    plt.xlim(0, 5)
     # plt.xlabel("Ratings")
     # plt.ylabel("Num movies")
     plt.show()

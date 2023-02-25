@@ -1,3 +1,4 @@
+#%%
 """
 This model is trained using scikit-surprise.
 This is the off-the-shelf implementation we chose to use.
@@ -35,9 +36,11 @@ def get_U_V(model, data):
     return U, V
 
 
-"""
-Model accuracies (RMSE):
-NMF: 0.8583
-SVD: 0.8252
-SVDpp: 0.8224
-"""
+# """
+# Model accuracies (RMSE):
+# NMF: 0.8583
+# SVD: 0.8252
+# SVDpp: 0.8224
+# """
+#%%
+
