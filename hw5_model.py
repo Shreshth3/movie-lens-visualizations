@@ -4,7 +4,7 @@ This model is based off of HW5.
 Specifically, we use Non-negative Matrix Factorization.
 """
 import numpy as np
-from utils import read_data
+from utils import read_data, K
 from tqdm import tqdm
 
 
@@ -138,7 +138,6 @@ def compute_num_users_and_movies(data):
 
 def get_U_V(data):
     num_users, num_movies = compute_num_users_and_movies(data)
-    K = 20
     eta = 0.03
     reg = 0.1
     eps = 0.0001
@@ -146,8 +145,8 @@ def get_U_V(data):
 
     data_as_numpy = data.to_numpy(copy=True).astype(int)
 
-    U_transpose, V, err = train_model(num_users, num_movies, K, eta, reg,
-                                      data_as_numpy, eps=eps, max_epochs=max_epochs)
+    U_transpose, V, _ = train_model(num_users, num_movies, K, eta, reg,
+                                    data_as_numpy, eps=eps, max_epochs=max_epochs)
 
     # Desired output shapes:
     # U: (K, M)
