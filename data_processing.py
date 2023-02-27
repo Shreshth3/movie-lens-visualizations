@@ -112,3 +112,7 @@ for GENRE in GENRES_TO_KEEP:
 # cleaned_movies = temp[(temp[GENRES_TO_KEEP[0]] > 0)]
 
 # %%
+def get_top_ten_best_movie_ids():
+    top_10_movies = grouped.sort_values('Rating', ascending=False)[:10]
+    top_10_movie_IDs = top_10_movies.index.values
+    return top_10_movie_IDs
