@@ -18,11 +18,22 @@ def plot_hist(title, data):
 
     plt.title(label=title)
     # plt.hist(data, bins=10)
-    sns.histplot(data, bins=10, binwidth=0.5)
-    plt.xlim(0, 5)
+    sns.histplot(data, bins=10)
+    plt.xlim(0.5, 5)
     # plt.xlabel("Ratings")
     # plt.ylabel("Num movies")
     plt.show()
+
+# %%
+# from collections import defaultdict
+# counter = defaultdict(int)
+
+# # manually go through all the data again
+# for index, (user, movie, rating) in data.iterrows():
+#     # print(user, movie, rating)
+#     counter[rating] += 1
+
+# print(counter)
 
 # %%
 # All ratings in the MovieLens Dataset
