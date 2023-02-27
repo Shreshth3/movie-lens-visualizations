@@ -12,16 +12,14 @@ movies = pd.read_csv(MOVIES_PATH, sep=',')
 
 sns.set_theme(style="darkgrid")
 # %%
-def plot_hist(title, data):
-    # use the to_numpy() if using matplotlib
-    # data = data.to_numpy()
-
+def plot_hist(title, ratings):
     plt.title(label=title)
-    # plt.hist(data, bins=10)
-    sns.histplot(data, bins=10)
-    plt.xlim(0.5, 5)
-    # plt.xlabel("Ratings")
-    # plt.ylabel("Num movies")
+    labels, counts = np.unique(ratings, return_counts=True)
+    plt.bar(labels, counts, align='center', width=0.5)
+    plt.gca().set_xticks(labels)
+    plt.xlim(0.25, 5.25)
+    plt.xlabel("Ratings")
+    plt.ylabel("Num movies")
     plt.show()
 
 # %%
@@ -39,7 +37,7 @@ def plot_hist(title, data):
 # All ratings in the MovieLens Dataset
 ratings = data.loc[:, 'Rating']
 
-plot_hist("All ratings in the MovieLens Dataset", ratings)
+plot_hist("All ratings in the MovieLens Dataset", ratings.to_numpy())
 
 # %%
 # Ratings of 10 most popular movies
@@ -105,7 +103,7 @@ for GENRE in GENRES_TO_KEEP:
     cleaned_data = data.loc[data['Movie ID'].isin(cleaned_ids)]
     cleaned_ratings = cleaned_data.loc[:, 'Rating']
 
-    plot_hist(f"All ratings for {GENRE}", cleaned_ratings)
+    plot_hist(f"All ratings for {GENRE}", cleaned_ratings.to_numpy())
 
 # get a thing with all three of them together, we don't need this XD
 # cleaned_movies = temp[(temp[GENRES_TO_KEEP[0]] > 0) | (temp[GENRES_TO_KEEP[1]] > 0) | (temp[GENRES_TO_KEEP[2]] > 0)]
